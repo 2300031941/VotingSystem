@@ -14,6 +14,15 @@ const DATA_FILE = path.join(__dirname, 'data.json');
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Set correct content-type for JSX files
+app.use((req, res, next) => {
+  if (req.url.endsWith('.jsx')) {
+    res.setHeader('Content-Type', 'application/javascript');
+  }
+  next();
+});
+
 app.use(express.static(__dirname));
 
 // Initialize data file if it doesn't exist
