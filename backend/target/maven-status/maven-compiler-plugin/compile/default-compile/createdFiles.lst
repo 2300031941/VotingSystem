@@ -1,0 +1,17 @@
+com\onlinevotingsystem\config\DataSeeder.class
+com\onlinevotingsystem\entity\User.class
+com\onlinevotingsystem\service\CandidateService.class
+com\onlinevotingsystem\config\SecurityConfig.class
+com\onlinevotingsystem\service\UserService.class
+com\onlinevotingsystem\OnlineVotingSystemApplication.class
+com\onlinevotingsystem\repository\UserRepository.class
+com\onlinevotingsystem\repository\VoteRepository.class
+com\onlinevotingsystem\config\WebConfig.class
+com\onlinevotingsystem\entity\Candidate.class
+com\onlinevotingsystem\config\GlobalExceptionHandler.class
+com\onlinevotingsystem\config\WebConfig$1.class
+com\onlinevotingsystem\repository\CandidateRepository.class
+com\onlinevotingsystem\controller\CandidateController.class
+com\onlinevotingsystem\entity\Vote.class
+com\onlinevotingsystem\controller\UserController.class
+com\onlinevotingsystem\service\VoteService.class

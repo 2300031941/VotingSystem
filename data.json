@@ -1,0 +1,35 @@
+{
+  "candidates": [
+    {
+      "id": 1,
+      "name": "Jagan Mohan Reddy",
+      "description": "YSRCP",
+      "votes": 0,
+      "symbol": "/src/assets/react.svg"
+    },
+    {
+      "id": 2,
+      "name": "Chandra Babu Naidu",
+      "description": "TDP",
+      "votes": 0,
+      "symbol": "/vite.svg"
+    },
+    {
+      "id": 3,
+      "name": "Pawan Kalyan",
+      "description": "Janasena",
+      "votes": 0,
+      "symbol": "/src/assets/react.svg"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Abhinay Reddy",
+      "aadhaar": "123454517845",
+      "password": "Abhi1234",
+      "role": "voter"
+    }
+  ],
+  "electionStatus": "active"
+}
