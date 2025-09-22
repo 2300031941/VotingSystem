@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (aadhaar, password, isAdmin = false) => {
     try {
       if (isAdmin) {
-        const response = await fetch('http://localhost:4000/api/admin/login', {
+        const response = await fetch('http://localhost:3000/api/admin/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
           return { success: false, error: errorData.error || 'Invalid admin credentials' };
         }
       } else {
-        const response = await fetch('http://localhost:4000/api/login', {
+        const response = await fetch('http://localhost:3000/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (name, aadhaar, password) => {
     try {
-      const response = await fetch('http://localhost:4000/api/signup', {
+      const response = await fetch('http://localhost:3000/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

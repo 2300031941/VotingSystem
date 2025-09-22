@@ -76,9 +76,9 @@ app.get('/api/candidates', (req, res) => {
 // POST /api/candidates
 app.post('/api/candidates', (req, res) => {
   try {
-    const { name, description } = req.body;
-    if (!name || !description) {
-      return res.status(400).json({ error: 'Name and description are required' });
+    const { name, partyName, age, symbol } = req.body;
+    if (!name || !partyName || !age || !symbol) {
+      return res.status(400).json({ error: 'Name, partyName, age, and symbol are required' });
     }
 
     const data = readData();
@@ -86,7 +86,9 @@ app.post('/api/candidates', (req, res) => {
     const newCandidate = {
       id: newId,
       name: name.trim(),
-      description: description.trim(),
+      partyName: partyName.trim(),
+      age: parseInt(age),
+      symbol: symbol.trim(),
       votes: 0,
       image: '/src/assets/react.svg'
     };
@@ -123,9 +125,9 @@ app.delete('/api/candidates/:id', (req, res) => {
 // POST /api/vote
 app.post('/api/vote', (req, res) => {
   try {
-    const { candidateId } = req.body;
-    if (!candidateId) {
-      return res.status(400).json({ error: 'Candidate ID is required' });
+    const { candidateId, aadhaarNumber } = req.body;
+    if (!candidateId || !aadhaarNumber) {
+      return res.status(400).json({ error: 'Candidate ID and Aadhaar number are required' });
     }
 
     const data = readData();
@@ -203,6 +205,70 @@ app.post('/api/signup', (req, res) => {
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to register user' });
+  }
+});
+
+// GET /api/vote-status
+app.get('/api/vote-status', (req, res) => {
+  try {
+    const { aadhaarNumber } = req.query;
+    if (!aadhaarNumber) {
+      return res.status(400).json({ error: 'Aadhaar number is required' });
+    }
+
+    // For simplicity, assume not voted, or check if needed
+    // Since data.json doesn't track votes per user, return false
+    res.json({ hasVoted: false });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to check vote status' });
+  }
+});
+
+// GET /api/results
+app.get('/api/results', (req, res) => {
+  try {
+    const data = readData();
+    // Sort candidates by votes descending
+    const sortedCandidates = data.candidates.sort((a, b) => b.votes - a.votes);
+    res.json(sortedCandidates);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch results' });
+  }
+});
+
+// POST /api/login
+app.post('/api/login', (req, res) => {
+  try {
+    const { aadhaarNumber, password } = req.body;
+    if (!aadhaarNumber || !password) {
+      return res.status(400).json({ error: 'Aadhaar number and password are required' });
+    }
+
+    const data = readData();
+    const user = data.users.find(u => u.aadhaar === aadhaarNumber && u.password === password);
+
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    res.json({ aadhaarNumber: user.aadhaar, fullName: user.name });
+  } catch (error) {
+    res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+// POST /api/admin/login
+app.post('/api/admin/login', (req, res) => {
+  try {
+    const { username, password } = req.body;
+    // Simple hardcoded admin check
+    if (username === 'admin' && password === 'admin123') {
+      res.json({ message: 'Admin logged in' });
+    } else {
+      res.status(401).json({ error: 'Invalid admin credentials' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Admin login failed' });
   }
 });
 
